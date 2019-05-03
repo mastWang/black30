@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 
 import index from './components/index.vue'
 import deltal from './components/deltal.vue'
+import userContainer from './components/userContainer.vue'
 
 const routes = [{
 path:'/index',
@@ -20,7 +21,12 @@ component: index
 {
 path:'/deltal/:id',
 component: deltal
-}]
+},
+{
+  path:"/user",
+  component:userContainer
+}
+]
 
 const router = new VueRouter({
   routes

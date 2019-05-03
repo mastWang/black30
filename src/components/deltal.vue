@@ -207,16 +207,21 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+
 export default {
   name: "deltal",
   data() {
     return {
+      //商品切换
       index: 1,
-      goodsinfo: {},
+      goodsinfo: [],
       hotgoodslist: [],
       imglist: [],
+      //评论的内容
       comment: "",
+      //页码
       pageIndex: 1,
+      //页容量
       pageSize: 10,
       totalcount: 0,
       commentList: []
@@ -233,8 +238,8 @@ export default {
         this.goodsinfo = res.data.message.goodsinfo;
         this.hotgoodslist = res.data.message.hotgoodslist;
         this.imglist = res.data.message.imglist;
-      }),
-      this.getComment();
+      });
+    this.getComment()
   },
   //过滤器
   filters: {
@@ -273,20 +278,20 @@ export default {
           }?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
         )
         .then(res => {
-         
-          this.totalcount = res.data.totalcount;
+          console.log(res);
           this.commentList = res.data.message;
+          this.totalcount = res.data.totalcount;
         });
     },
     //页容量改变
-    handleSizeChange(size){
-      this.pageSize=size
-      this.getComment()
+    handleSizeChange(size) {
+      this.pageSize = size;
+      this.getComment();
     },
- //页码改变
-    handleCurrentChange(current){
-      this.pageIndex=current
-      this.getComment()
+    //页码改变
+    handleCurrentChange(current) {
+      this.pageIndex = current;
+      this.getComment();
     }
   }
 };
