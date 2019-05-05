@@ -185,12 +185,17 @@
                 <ul class="side-img-list">
                   <li v-for="(item, index) in hotgoodslist" :key="index">
                     <div class="img-box">
-                      <a href="#/site/goodsinfo/90" class>
+                      <!-- <a href="#/site/goodsinfo/90" class> -->
+                      <router-link :to="'/deltal/'+item.id">
                         <img :src="item.img_url">
-                      </a>
+                        </router-link>
+                      <!-- </a> -->
                     </div>
                     <div class="txt-box">
-                      <a href="#/site/goodsinfo/90" class>{{item.title}}</a>
+                      <!-- <a href="#/site/goodsinfo/90" class>{{item.title}}</a> -->
+                      <router-link :to="'/deltal/'+item.id">
+                      {{item.title}}
+                      </router-link>
                       <span>{{item.add_time | formatTime}}</span>
                     </div>
                   </li>
@@ -205,14 +210,15 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
+
+
 
 export default {
   name: "deltal",
   data() {
     return {
       //商品切换
+      num:1,
       index: 1,
       goodsinfo: [],
       hotgoodslist: [],
@@ -228,9 +234,9 @@ export default {
     };
   },
   created() {
-    axios
+    this.$axios
       .get(
-        `http://111.230.232.110:8899/site/goods/getgoodsinfo/${
+        `/site/goods/getgoodsinfo/${
           this.$route.params.id
         }`
       )
@@ -241,20 +247,33 @@ export default {
       });
     this.getComment()
   },
-  //过滤器
-  filters: {
-    formatTime(value) {
-      return moment(value).format("YYYY年MM月DD日");
+  watch: {
+    '$route.params.id'(nw){
+       this.$axios
+      .get(
+        `/site/goods/getgoodsinfo/${
+         nw
+        }`
+      )
+      .then(res => {
+        this.goodsinfo = res.data.message.goodsinfo;
+        this.hotgoodslist = res.data.message.hotgoodslist;
+        this.imglist = res.data.message.imglist;
+      });
+      this.getComment()
     }
+
+    
   },
+
   methods: {
     postComent() {
       if (this.comment === "") {
         this.$message.error("写点东西吧帅哥美女");
       } else {
-        axios
+        this.$axios
           .post(
-            `http://111.230.232.110:8899/site/validate/comment/post/goods/${
+            `/site/validate/comment/post/goods/${
               this.$route.params.id
             }`,
             { commenttxt: this.comment }
@@ -271,14 +290,14 @@ export default {
     },
 
     getComment() {
-      axios
+      this.$axios
         .get(
-          `http://111.230.232.110:8899/site/comment/getbypage/goods/${
+          `/site/comment/getbypage/goods/${
             this.$route.params.id
           }?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
         )
         .then(res => {
-          console.log(res);
+        
           this.commentList = res.data.message;
           this.totalcount = res.data.totalcount;
         });
