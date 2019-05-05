@@ -13,6 +13,9 @@ Vue.use(VueRouter)
 import index from './components/index.vue'
 import deltal from './components/deltal.vue'
 import userContainer from './components/userContainer.vue'
+import userindex from './components/userdetal.vue'
+import userdetal from './components/userdetal.vue'
+import userouder from './components/userouder.vue'
 
 const routes = [{
     path: '/',
@@ -28,6 +31,22 @@ const routes = [{
   {
     path: "/user",
     component: userContainer
+  },
+  {
+    path: "/userContainer",
+    component: userContainer,
+    children: [{
+        path: 'userindex',
+        component: userindex
+      },
+      {
+        path: 'userdetal',
+        component: userdetal
+      }, {
+        path: 'userouder',
+        component: userouder
+      }
+    ]
   }
 ]
 
@@ -46,7 +65,7 @@ Vue.prototype.$axios = axios;
 //定义全局过滤器
 //导入
 import moment from 'moment'
-Vue.filter('formatTime',(value)=>{
+Vue.filter('formatTime', (value) => {
   return moment(value).format('YYY年MM月DD日')
 })
 

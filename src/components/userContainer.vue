@@ -31,12 +31,15 @@
                                         <li>
                                             <h2>
                                                 <i class="iconfont icon-order"></i>
-                                                <span>订单管理</span>
+                                                <router-link to="/userContainer/userouder">订单管理</router-link>
                                             </h2>
                                             <div class="list">
                                                 <p>
                                                     <a href="#/site/member/orderlist" class="">
-                                                        <i class="iconfont icon-arrow-right"></i>交易订单</a>
+                                                    <!-- <router-link to="/index"> -->
+                                                        <i class="iconfont icon-arrow-right"></i>交易订单
+                                                        </a>
+                                                        <!-- </router-link> -->
                                                 </p>
                                             </div>
                                         </li>
@@ -69,7 +72,7 @@
                             </div>
                         </div>
                         <div class="right-auto">
-                         <router-view></router-view>
+                            <router-view></router-view>
                         </div>
                     </div>
                 </div>
