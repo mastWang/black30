@@ -15,28 +15,31 @@ import deltal from './components/deltal.vue'
 import userContainer from './components/userContainer.vue'
 
 const routes = [{
-path:'/index',
-component: index
-},
-{
-path:'/deltal/:id',
-component: deltal
-},
-{
-  path:"/user",
-  component:userContainer
-}
+    path: '/',
+    redirect: '/index'
+  }, {
+    path: '/index',
+    component: index
+  },
+  {
+    path: '/deltal/:id',
+    component: deltal
+  },
+  {
+    path: "/user",
+    component: userContainer
+  }
 ]
 
 const router = new VueRouter({
   routes
 })
 
-import  './assets/statics/site/css/style.css'
+import './assets/statics/site/css/style.css'
 
 Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  router 
+  router
 }).$mount('#app')
